@@ -6,18 +6,18 @@ const path = require('path');
 
 fs.readdir(path.resolve(__dirname,'secret-folder' ),{withFileTypes: true},  (err, files) => {
   files.forEach(file => {
-    console.log(file.name);
-    fs.stat(path.resolve(__dirname,'secret-folder'), (error, stats) => {
+    
+    
+    fs.stat(path.resolve(__dirname,`secret-folder/${file.name}`), (error, stats) => {
       if (error) {
         console.log(error);
       }
-      else {
+      else if (stats.isFile()){
           
-        console.log(stats.size);
-          
+        console.log(file.name +' -', path.extname(file.name) + ' -',stats.size /1000 + ' kb');
         
-        console.log('Path is file:', stats.isFile());
-        console.log('Path is directory:', stats.isDirectory());
+        /*console.log('Path is file:', stats.isFile());
+        console.log('Path is directory:', stats.isDirectory());*/
       }
     });
 
@@ -26,20 +26,6 @@ fs.readdir(path.resolve(__dirname,'secret-folder' ),{withFileTypes: true},  (err
 });
 
 
-
-fs.stat(path.resolve(__dirname,'secret-folder/script.js'), (error, stats) => {
-  if (error) {
-    console.log(error);
-  }
-  else {
-    
-    console.log(stats.size);
-    
-  
-    console.log('Path is file:', stats.isFile());
-    console.log('Path is directory:', stats.isDirectory());
-  }
-});
 
 
 
