@@ -11,14 +11,20 @@ process.stdin.on('readable', () => {
   });
 
   let chunk;
+ 
   
   while ((chunk = process.stdin.read()) !== null) {
     fs.appendFile(path.resolve(__dirname,'textFile.txt'), chunk,(err) => {
       if(err) throw err;
-    });
+    });  
+    if(String(chunk) === 'exit');
+    process.exit(0);
     
-  }
-});
+  }});
+
+
+
+
 
 
 
