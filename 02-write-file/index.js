@@ -16,12 +16,18 @@ process.stdin.on('readable', () => {
   while ((chunk = process.stdin.read()) !== null) {
     fs.appendFile(path.resolve(__dirname,'textFile.txt'), chunk,(err) => {
       if(err) throw err;
-    });  
-    if(String(chunk) === 'exit');
-    process.exit(0);
+      stdin.on('data', data=>{
+        if(data.toString() === 'exit'){
+          process.exit(0);
+        }
+      }
+      );
+    }); 
     
-  }});
-
+    
+  } 
+    
+});
 
 
 
